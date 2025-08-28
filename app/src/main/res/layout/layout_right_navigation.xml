@@ -8,12 +8,12 @@
     android:paddingTop="50dp">
 
     <TextView
-        android:gravity="center"
-        android:textColor="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="82dp"
+        android:gravity="center"
         android:text="choose your location"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_marginLeft="10dp"

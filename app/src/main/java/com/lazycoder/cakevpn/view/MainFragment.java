@@ -20,7 +20,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.bumptech.glide.Glide;
 import com.lazycoder.cakevpn.CheckInternetConnection;
 import com.lazycoder.cakevpn.R;
 import com.lazycoder.cakevpn.SharedPreference;
@@ -277,26 +276,31 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
     public void status(String status) {
 
         if (status.equals("connect")) {
-            binding.vpnBtn.setText(getContext().getString(R.string.connect));
+            // Default state: show disconnect icon (as requested)
+            binding.vpnBtn.setImageResource(R.drawable.disconnect);
+            // Update banner status text
+            binding.statusTv.setText("Disconnected");
         } else if (status.equals("connecting")) {
-            binding.vpnBtn.setText(getContext().getString(R.string.connecting));
+            // While connecting, show connect button icon
+            binding.vpnBtn.setImageResource(R.drawable.connectbutton);
+            binding.statusTv.setText("Connecting...");
         } else if (status.equals("connected")) {
-
-            binding.vpnBtn.setText(getContext().getString(R.string.disconnect));
-
+            // Connected: show connect button icon
+            binding.vpnBtn.setImageResource(R.drawable.connectbutton);
+            binding.statusTv.setText("Connected");
         } else if (status.equals("tryDifferentServer")) {
-
-            binding.vpnBtn.setBackgroundResource(R.drawable.button_connected);
-            binding.vpnBtn.setText("Try Different\nServer");
+            // keep connect icon to indicate action to connect to another server
+            binding.vpnBtn.setImageResource(R.drawable.connectbutton);
+            binding.statusTv.setText("Disconnected");
         } else if (status.equals("loading")) {
-            binding.vpnBtn.setBackgroundResource(R.drawable.button);
-            binding.vpnBtn.setText("Loading Server..");
+            // loading: keep default
+            binding.vpnBtn.setImageResource(R.drawable.disconnect);
+            binding.statusTv.setText("Loading...");
         } else if (status.equals("invalidDevice")) {
-            binding.vpnBtn.setBackgroundResource(R.drawable.button_connected);
-            binding.vpnBtn.setText("Invalid Device");
+            binding.vpnBtn.setImageResource(R.drawable.disconnect);
+            binding.statusTv.setText("Disconnected");
         } else if (status.equals("authenticationCheck")) {
-            binding.vpnBtn.setBackgroundResource(R.drawable.button_connecting);
-            binding.vpnBtn.setText("Authentication \n Checking...");
+            binding.statusTv.setText("Connecting...");
         }
 
     }
@@ -340,10 +344,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
      * @param byteOut: outgoing data
      */
     public void updateConnectionStatus(String duration, String lastPacketReceive, String byteIn, String byteOut) {
-        binding.durationTv.setText("Duration: " + duration);
-        binding.lastPacketReceiveTv.setText("Packet Received: " + lastPacketReceive + " second ago");
-        binding.byteInTv.setText("Bytes In: " + byteIn);
-        binding.byteOutTv.setText("Bytes Out: " + byteOut);
+        // Update time line in banner (format as 00 : 00 : 00)
+        String formattedDuration = duration == null ? "00 : 00 : 00" : duration.replace(":", " : ");
+        binding.timeTv.setText(formattedDuration);
+
+        // New: overlay bytes values inside the speed images with two spaces padding
+        if (byteIn == null) byteIn = "";
+        if (byteOut == null) byteOut = "";
+        binding.downloadBytesTv.setText("  " + byteIn + "  ");
+        binding.uploadBytesTv.setText("  " + byteOut + "  ");
+
+        // Keep existing detailed labels below with two spaces after the colon
+//        binding.lastPacketReceiveTv.setText("Packet Received: " + lastPacketReceive + " second ago");
+//        binding.byteInTv.setText("Bytes In:  " + byteIn);
+//        binding.byteOutTv.setText("Bytes OUT:  " + byteOut);
     }
 
     /**
@@ -359,9 +373,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
      * @param serverIcon: icon URL
      */
     public void updateCurrentServerIcon(String serverIcon) {
-        Glide.with(getContext())
-                .load(serverIcon)
-                .into(binding.selectedServerIcon);
+        // No-op: bottom flag icon removed from the main page UI
     }
 
     /**

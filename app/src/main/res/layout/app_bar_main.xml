@@ -3,21 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/burj_khalifa">
-    <include layout="@layout/tool_bar"></include>
+    android:background="@drawable/background">
+    <include layout="@layout/tool_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/serverListRv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:clipToPadding="false"
-        android:padding="8dp" />
-
+    <!-- Content container -->
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container">
+        android:layout_height="match_parent">
     </FrameLayout>
 </LinearLayout>
