@@ -233,7 +233,7 @@
     <string name="minidump_generated">OpenVPN crashed unexpectedly. Please consider using the send Minidump option in the main menu</string>
     <string name="send_minidump">Send Minidump to developer</string>
     <string name="send_minidump_summary">Sends debugging information about last crash to developer</string>
-    <string name="notifcation_title">CakeVPN - %s</string>
+    <string name="notifcation_title">SuperVPN - %s</string>
     <string name="session_ipv4string">%1$s - %2$s</string>
     <string name="session_ipv6string">%1$s - %3$s, %2$s</string>
     <string name="state_connecting">Connecting</string>
@@ -321,7 +321,7 @@
     <string name="files_missing_hint">Some files could not be found. Please select the files to import the profile:</string>
     <string name="openvpn_is_no_free_vpn">To use this app you need a VPN provider/VPN gateway supporting OpenVPN (often provided by your employer). Check out https://community.openvpn.net/ for more information on OpenVPN and how to setup your own OpenVPN server.</string>
     <string name="import_log">Import log:</string>
-    <string name="ip_looks_like_subnet">Vpn topology \"%3$s\" specified but ifconfig %1$s %2$s looks more like an IP address with a network mask. Assuming \"subnet\" topology.</string>
+    <string name="ip_looks_like_subnet">Vpn topology \"%3$s\" specified but ifconfig %1$s %2$s looks more like an IP address with a network mask. Assuming "subnet" topology.</string>
     <string name="mssfix_invalid_value">The MSS override value has to be a integer between 0 and 9000</string>
     <string name="mtu_invalid_value">The MTU override value has to be a integer between 64 and 9000</string>
     <string name="mssfix_value_dialog">Announce to TCP sessions running over the tunnel that they should limit their send packet sizes such that after OpenVPN has encapsulated them, the resulting UDP packet size that OpenVPN sends to its peer will not exceed this number of bytes. (default is 1450)</string>
@@ -419,7 +419,7 @@
     <string name="connectretrymaxmessage">Enter the maximum time between connection attempts. OpenVPN will slowly raise its waiting time after an unsuccessful connection attempt up to this value. Defaults to 300s.</string>
     <string name="connectretrymaxtitle">Maximum time between connection attempts</string>
     <string name="state_waitconnectretry">Waiting %ss seconds between connection attempt</string>
-    <string name="nought_alwayson_warning"><![CDATA[If you did not get a VPN confirmation dialog, you have \"Always on VPN\" enabled for another app. In that case only that app is allowed to connect to a VPN. Check under Settings-> Networks more .. -> VPNS]]></string>
+    <string name="nought_alwayson_warning"><![CDATA[If you did not get a VPN confirmation dialog, you have "Always on VPN" enabled for another app. In that case only that app is allowed to connect to a VPN. Check under Settings-> Networks more .. -> VPNS]]></string>
     <string name="management_socket_closed">Connection to OpenVPN closed (%s)</string>
     <string name="change_sorting">Change sorting</string>
     <string name="sort">Sort</string>

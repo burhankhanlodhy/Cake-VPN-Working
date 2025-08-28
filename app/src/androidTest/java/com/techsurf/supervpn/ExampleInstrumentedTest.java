@@ -1,4 +1,4 @@
-package com.lazycoder.cakevpn;
+package com.techsurf.supervpn;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.lazycoder.cakevpn", appContext.getPackageName());
+        assertEquals("com.techsurf.supervpn", appContext.getPackageName());
     }
 }

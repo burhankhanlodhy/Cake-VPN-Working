@@ -345,7 +345,7 @@
     <string name="install_keychain">Install new certificate</string>
     <string name="internal_web_view">Internal WebView</string>
     <string name="ip_add_error">Could not configure IP Address \"%1$s\", rejected by the system: %2$s</string>
-    <string name="ip_looks_like_subnet">Vpn topology \"%3$s\" specified but ifconfig %1$s %2$s looks more like an IP address with a network mask. Assuming \"subnet\" topology.</string>
+    <string name="ip_looks_like_subnet">Vpn topology \"%3$s\" specified but ifconfig %1$s %2$s looks more like an IP address with a network mask. Assuming "subnet" topology.</string>
     <string name="ip_not_cidr">Got interface information %1$s and %2$s, assuming second address is peer address of remote. Using /32 netmask for local IP. Mode given by OpenVPN is \"%3$s\".</string>
     <string name="ipdns">IP and DNS</string>
     <string name="ipv4">IPv4</string>
@@ -410,9 +410,9 @@
     <string name="no_vpn_support_image">Your image does not support the VPNService API, sorry :(</string>
     <string name="nobind_summary">Do not bind to local address and port</string>
     <string name="notenoughdata">Not enough data</string>
-    <string name="notifcation_title">CakeVPN - %s</string>
+    <string name="notifcation_title">SuperVPN - %s</string>
     <string name="notifcation_title_notconnect">Not connected</string>
-    <string name="nought_alwayson_warning"><![CDATA[If you did not get a VPN confirmation dialog, you have \"Always on VPN\" enabled for another app. In that case only that app is allowed to connect to a VPN. Check under Settings-> Networks more .. -> VPNS]]></string>
+    <string name="nought_alwayson_warning"><![CDATA[If you did not get a VPN confirmation dialog, you have "Always on VPN" enabled for another app. In that case only that app is allowed to connect to a VPN. Check under Settings-> Networks more .. -> VPNS]]></string>
     <string name="novpn_selected">No VPN selected.</string>
     <string name="obscure">Obscure OpenVPN Settings. Normally not needed.</string>
     <string name="official_build">official build</string>

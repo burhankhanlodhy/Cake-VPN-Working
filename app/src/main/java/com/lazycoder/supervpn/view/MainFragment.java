@@ -1,4 +1,4 @@
-package com.lazycoder.cakevpn.view;
+package com.lazycoder.supervpn.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,12 +20,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.lazycoder.cakevpn.CheckInternetConnection;
-import com.lazycoder.cakevpn.R;
-import com.lazycoder.cakevpn.SharedPreference;
-import com.lazycoder.cakevpn.databinding.FragmentMainBinding;
-import com.lazycoder.cakevpn.interfaces.ChangeServer;
-import com.lazycoder.cakevpn.model.Server;
+import com.techsurf.supervpn.CheckInternetConnection;
+import com.techsurf.supervpn.R;
+import com.techsurf.supervpn.SharedPreference;
+import com.techsurf.supervpn.databinding.FragmentMainBinding;
+import com.techsurf.supervpn.interfaces.ChangeServer;
+import com.techsurf.supervpn.model.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -226,7 +226,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
             OpenVpnApi.startVpn(getContext(), config, server.getCountry(), server.getOvpnUserName(), server.getOvpnUserPassword());
 
             // Update log
-            binding.logTv.setText("Connecting...");
+//            binding.logTv.setText("Connecting...");
             vpnStart = true;
 
         } catch (IOException | RemoteException e) {
@@ -245,25 +245,27 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
                 status("connect");
                 vpnStart = false;
                 vpnService.setDefaultStatus();
-                binding.logTv.setText("");
+//                binding.logTv.setText("");
+                // Reset timer display on disconnect
+                binding.timeTv.setText("00 : 00 : 00");
                 break;
             case "CONNECTED":
                 vpnStart = true;// it will use after restart this activity
                 status("connected");
-                binding.logTv.setText("");
+//                binding.logTv.setText("");
                 break;
             case "WAIT":
-                binding.logTv.setText("waiting for server connection!!");
+//                binding.logTv.setText("waiting for server connection!!");
                 break;
             case "AUTH":
-                binding.logTv.setText("server authenticating!!");
+//                binding.logTv.setText("server authenticating!!");
                 break;
             case "RECONNECTING":
                 status("connecting");
-                binding.logTv.setText("Reconnecting...");
+//                binding.logTv.setText("Reconnecting...");
                 break;
             case "NONETWORK":
-                binding.logTv.setText("No network connection");
+//                binding.logTv.setText("No network connection");
                 break;
         }
 

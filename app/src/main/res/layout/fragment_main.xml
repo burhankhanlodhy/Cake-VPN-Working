@@ -26,8 +26,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/connecttime"
-                android:padding="2dp"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:padding="2dp" />
 
             <!-- Centered container with two lines: status and time -->
             <LinearLayout
@@ -52,23 +52,27 @@
 
                 <TextView
                     android:id="@+id/timeTv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="2dp"
                     android:gravity="center"
+                    android:text="@string/_00_00_00"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:shadowColor="#80000000"
                     android:shadowDx="0"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="00 : 00 : 00"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/archivo_black_regular"/>
-                android:textStyle="bold" />
+                    android:includeFontPadding="true"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:fontFamily="@font/archivo_black_regular" />
             </LinearLayout>
         </FrameLayout>
 
-        <!-- New: Download/Upload images side by side with overlaid byte values -->
+        <!-- Download/Upload images side by side with overlaid byte values -->
         <LinearLayout
             android:id="@+id/speedBanner"
             android:layout_width="match_parent"
@@ -95,7 +99,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/downloadspeed"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:padding="2dp" />
 
                 <TextView
                     android:id="@+id/downloadBytesTv"
@@ -110,8 +115,8 @@
                     android:shadowDx="0"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:fontFamily="@font/archivo_black_regular"/>
-                android:padding="2dp" />
+                    android:fontFamily="@font/archivo_black_regular"
+                    android:padding="2dp" />
             </FrameLayout>
 
             <FrameLayout
@@ -127,7 +132,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/uploadspeed"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:padding="2dp" />
 
                 <TextView
                     android:id="@+id/uploadBytesTv"
@@ -137,31 +143,21 @@
                     android:text=""
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:shadowColor="#80000000"
                     android:shadowDx="0"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:fontFamily="@font/archivo_black_regular"/>
+                    android:fontFamily="@font/archivo_black_regular"
                     android:padding="2dp" />
             </FrameLayout>
         </LinearLayout>
 
-        <!-- Place logs below the speed banner and above the status -->
+        <!-- Place logs below the speed banner -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/connectionStatus"
-            android:layout_below="@id/speedBanner">
-
-            <TextView
-                android:id="@+id/logTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite" />
-        </LinearLayout>
+            android:layout_below="@id/speedBanner"/>
 
         <ImageButton
             android:id="@+id/vpnBtn"

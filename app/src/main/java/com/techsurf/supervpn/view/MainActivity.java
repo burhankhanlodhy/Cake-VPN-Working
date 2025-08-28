@@ -1,4 +1,4 @@
-package com.lazycoder.cakevpn.view;
+package com.techsurf.supervpn.view;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,15 +14,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.lazycoder.cakevpn.R;
-import com.lazycoder.cakevpn.adapter.ServerListRVAdapter;
-import com.lazycoder.cakevpn.interfaces.ChangeServer;
-import com.lazycoder.cakevpn.interfaces.NavItemClickListener;
-import com.lazycoder.cakevpn.model.Server;
+import com.techsurf.supervpn.R;
+import com.techsurf.supervpn.adapter.ServerListRVAdapter;
+import com.techsurf.supervpn.interfaces.ChangeServer;
+import com.techsurf.supervpn.interfaces.NavItemClickListener;
+import com.techsurf.supervpn.model.Server;
 
 import java.util.ArrayList;
 
-import com.lazycoder.cakevpn.Utils;
+import com.techsurf.supervpn.Utils;
 
 
 public class MainActivity extends AppCompatActivity implements NavItemClickListener {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
     private DrawerLayout drawer;
     private ChangeServer changeServer;
 
-    public static final String TAG = "CakeVPN";
+    public static final String TAG = "SuperVPN";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,23 +115,11 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
                 "freeopenvpn",
                 "416248023"
         ));
-        servers.add(new Server("Japan",
-                Utils.getImgURL(R.drawable.japan),
-                "japan.ovpn",
-                "vpn",
-                "vpn"
-        ));
-        servers.add(new Server("Sweden",
-                Utils.getImgURL(R.drawable.sweden),
-                "sweden.ovpn",
-                "vpn",
-                "vpn"
-        ));
-        servers.add(new Server("Korea",
-                Utils.getImgURL(R.drawable.korea),
-                "korea.ovpn",
-                "vpn",
-                "vpn"
+        servers.add(new Server("United Kingdom",
+                Utils.getImgURL(R.drawable.uk_flag),
+                "uk.ovpn",
+                "freeopenvpn",
+                "416248023"
         ));
 
         return servers;

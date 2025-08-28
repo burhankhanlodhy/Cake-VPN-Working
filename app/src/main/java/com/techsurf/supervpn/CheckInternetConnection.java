@@ -1,4 +1,4 @@
-package com.lazycoder.cakevpn;
+package com.techsurf.supervpn;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -1,4 +1,4 @@
-package com.lazycoder.cakevpn;
+package com.techsurf.supervpn;
 
 import org.junit.Test;
 

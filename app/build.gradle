@@ -8,7 +8,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        applicationId 'com.lazycoder.cakevpn'
+        applicationId 'com.techsurf.supervpn'
     }
     buildTypes {
         release {
@@ -30,7 +30,7 @@ android {
             useLegacyPackaging true
         }
     }
-    namespace 'com.lazycoder.cakevpn'
+    namespace 'com.techsurf.supervpn'
 }
 
 dependencies {

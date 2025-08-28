@@ -1,14 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml:1:1-13
-INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml:1:1-13
+ADDED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml:1:1-13
+INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml:1:1-13
 	package
-		INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml
+		INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml
 uses-sdk
-INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml
-INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml
+INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml
+INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml
+		INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Cake-VPN-master\vpnLib\src\main\AndroidManifest.xml
+		INJECTED from D:\SuperVPN-master\vpnLib\src\main\AndroidManifest.xml

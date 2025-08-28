@@ -1,15 +1,15 @@
-package com.lazycoder.cakevpn;
+package com.techsurf.supervpn;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.lazycoder.cakevpn.model.Server;
+import com.techsurf.supervpn.model.Server;
 
-import static com.lazycoder.cakevpn.Utils.getImgURL;
+import static com.techsurf.supervpn.Utils.getImgURL;
 
 public class SharedPreference {
 
-    private static final String APP_PREFS_NAME = "CakeVPNPreference";
+    private static final String APP_PREFS_NAME = "SuperVPNPreference";
 
     private SharedPreferences mPreference;
     private SharedPreferences.Editor mPrefEditor;
@@ -46,12 +46,27 @@ public class SharedPreference {
      */
     public Server getServer() {
 
+        // Enforce allowed servers only (US/UK)
+        String storedOvpn = mPreference.getString(SERVER_OVPN, "us.ovpn");
+        if (!"us.ovpn".equals(storedOvpn) && !"uk.ovpn".equals(storedOvpn)) {
+            Server fallback = new Server(
+                    "United States",
+                    getImgURL(R.drawable.usa_flag),
+                    "us.ovpn",
+                    "freeopenvpn",
+                    "416248023"
+            );
+            // Persist fallback so UI and future reads align
+            saveServer(fallback);
+            return fallback;
+        }
+
         Server server = new Server(
-                mPreference.getString(SERVER_COUNTRY,"Japan"),
-                mPreference.getString(SERVER_FLAG,getImgURL(R.drawable.japan)),
-                mPreference.getString(SERVER_OVPN,"japan.ovpn"),
-                mPreference.getString(SERVER_OVPN_USER,"vpn"),
-                mPreference.getString(SERVER_OVPN_PASSWORD,"vpn")
+                mPreference.getString(SERVER_COUNTRY,"United States"),
+                mPreference.getString(SERVER_FLAG,getImgURL(R.drawable.usa_flag)),
+                mPreference.getString(SERVER_OVPN,"us.ovpn"),
+                mPreference.getString(SERVER_OVPN_USER,"freeopenvpn"),
+                mPreference.getString(SERVER_OVPN_PASSWORD,"416248023")
         );
 
         return server;
