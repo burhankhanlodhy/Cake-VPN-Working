@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import de.blinkt.openvpn.OpenVpnApi;
 import de.blinkt.openvpn.core.OpenVPNService;
@@ -41,6 +44,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class MainFragment extends Fragment implements View.OnClickListener, ChangeServer {
 
+    private static final String TAG = "SuperVPN";
     private Server server;
     private CheckInternetConnection connection;
 
@@ -209,29 +213,111 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
      */
     private void startVpn() {
         try {
-            // .ovpn file
-            InputStream conf = getActivity().getAssets().open(server.getOvpn());
-            InputStreamReader isr = new InputStreamReader(conf);
-            BufferedReader br = new BufferedReader(isr);
-            String config = "";
-            String line;
-
-            while (true) {
-                line = br.readLine();
-                if (line == null) break;
-                config += line + "\n";
+            String ovpnPath = server.getOvpn();
+            if (ovpnPath != null && (ovpnPath.startsWith("http://") || ovpnPath.startsWith("https://"))) {
+                // Fetch remote .ovpn on background thread
+                new Thread(() -> {
+                    try {
+                        URL url = new URL(ovpnPath);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setConnectTimeout(10000);
+                        conn.setReadTimeout(15000);
+                        conn.setRequestMethod("GET");
+                        int code = conn.getResponseCode();
+                        InputStream in = (code >= 200 && code < 300) ? conn.getInputStream() : conn.getErrorStream();
+                        String config = readAll(in);
+                        if (code >= 200 && code < 300 && config != null && !config.trim().isEmpty()) {
+                            getActivity().runOnUiThread(() -> {
+                                try {
+                                    OpenVpnApi.startVpn(getContext(), config, server.getCountry(), server.getOvpnUserName(), server.getOvpnUserPassword());
+                                    Log.i(TAG, "Connected using firebase");
+                                    vpnStart = true;
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                    showToast("Failed to start VPN");
+                                }
+                            });
+                        } else {
+                            // If Japan URL, do not fallback to asset
+                            if (ovpnPath.endsWith("/japan.ovpn")) {
+                                Log.w(TAG, "Japan config fetch failed, not falling back to asset");
+                                getActivity().runOnUiThread(() -> showToast("Failed to fetch Japan config"));
+                            } else {
+                                // Fallback to local asset using last path segment
+                                fallbackToAsset(ovpnPath);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if (ovpnPath.endsWith("/japan.ovpn")) {
+                            Log.w(TAG, "Japan config fetch error, not falling back to asset");
+                            getActivity().runOnUiThread(() -> showToast("Failed to fetch Japan config"));
+                        } else {
+                            fallbackToAsset(ovpnPath);
+                        }
+                    }
+                }).start();
+                return;
             }
 
-            br.readLine();
+            // Local asset flow (original)
+            InputStream conf = getActivity().getAssets().open(ovpnPath);
+            InputStreamReader isr = new InputStreamReader(conf);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+            String config = sb.toString();
             OpenVpnApi.startVpn(getContext(), config, server.getCountry(), server.getOvpnUserName(), server.getOvpnUserPassword());
-
-            // Update log
-//            binding.logTv.setText("Connecting...");
+            Log.i(TAG, "Connected using asset files");
             vpnStart = true;
 
         } catch (IOException | RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fallbackToAsset(String pathHint) {
+        try {
+            String assetName = pathHint == null ? null : pathHint.substring(pathHint.lastIndexOf('/') + 1);
+            if (assetName == null || assetName.isEmpty()) assetName = "us.ovpn"; // safe default
+            InputStream conf = getActivity().getAssets().open(assetName);
+            InputStreamReader isr = new InputStreamReader(conf);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+            String config = sb.toString();
+            String finalConfig = config;
+            getActivity().runOnUiThread(() -> {
+                try {
+                    OpenVpnApi.startVpn(getContext(), finalConfig, server.getCountry(), server.getOvpnUserName(), server.getOvpnUserPassword());
+                    Log.i(TAG, "Connected using asset files");
+                    vpnStart = true;
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    showToast("Failed to start VPN");
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            getActivity().runOnUiThread(() -> showToast("Failed to load VPN config"));
+        }
+    }
+
+    private String readAll(InputStream in) throws IOException {
+        if (in == null) return null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line).append('\n');
+        }
+        return sb.toString();
     }
 
     /**

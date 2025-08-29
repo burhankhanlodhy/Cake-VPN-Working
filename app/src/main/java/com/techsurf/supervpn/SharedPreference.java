@@ -46,13 +46,16 @@ public class SharedPreference {
      */
     public Server getServer() {
 
-        // Enforce allowed servers only (US/UK)
-        String storedOvpn = mPreference.getString(SERVER_OVPN, "us.ovpn");
-        if (!"us.ovpn".equals(storedOvpn) && !"uk.ovpn".equals(storedOvpn)) {
+        // Enforce allowed servers only (US asset or remote URL)
+        String storedOvpn = mPreference.getString(SERVER_OVPN, "https://supervpn-a644d.web.app/us.ovpn");
+        boolean isAllowed =
+                "us.ovpn".equals(storedOvpn) ||
+                (storedOvpn != null && (storedOvpn.startsWith("http://") || storedOvpn.startsWith("https://")));
+        if (!isAllowed) {
             Server fallback = new Server(
                     "United States",
                     getImgURL(R.drawable.usa_flag),
-                    "us.ovpn",
+                    "https://supervpn-a644d.web.app/us.ovpn",
                     "freeopenvpn",
                     "416248023"
             );
@@ -64,7 +67,7 @@ public class SharedPreference {
         Server server = new Server(
                 mPreference.getString(SERVER_COUNTRY,"United States"),
                 mPreference.getString(SERVER_FLAG,getImgURL(R.drawable.usa_flag)),
-                mPreference.getString(SERVER_OVPN,"us.ovpn"),
+                storedOvpn,
                 mPreference.getString(SERVER_OVPN_USER,"freeopenvpn"),
                 mPreference.getString(SERVER_OVPN_PASSWORD,"416248023")
         );
